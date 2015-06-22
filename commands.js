@@ -11,7 +11,7 @@ import assign from 'object-assign';
 const resume = suspend.resume;
 
 cli.version(pkg.version)
-   .option('-l, --list <plugins>', 'List of plugins to install and configure',
+   .option('-p, --plugins <plugins>', 'List of plugins to install and configure',
            plugins => plugins.split(','))
    .option('--save', 'see npm --save')
    .option('--save-dev', 'see npm --save-dev')
@@ -20,7 +20,7 @@ cli.version(pkg.version)
    .action(dir => {
      const cwd = path.resolve(dir);
      const save = Object.keys(cli).find(key => key.includes('save'));
-     const plugins = cli.list;
+     const plugins = cli.plugins;
      const gruntedPlugins = plugins.map(plugin => `grunt-${plugin}`);
 
      npm({plugins: gruntedPlugins.concat('grunt'),
