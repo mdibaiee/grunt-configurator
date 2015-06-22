@@ -13,7 +13,7 @@ export default function(info, cb) {
   let index = 0;
   prompt.start();
 
-  console.log(chalk.cyan.bold('\nFiles'));
+  console.log(chalk.cyan.bold(`\n[${info.name}] Files`));
   ask(info, index, files, cb);
 }
 

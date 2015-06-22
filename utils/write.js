@@ -14,10 +14,12 @@ export default suspend(function* (json, plugins, tasks, dir) {
   const content = `module.exports = function(grunt) {
   grunt.initConfig({\n${json});
 
-  ${plugins.join('\n')}
+  ${plugins.join('\n  ')}
 
-  ${tasks.join('\n')}
+  ${tasks.join('\n  ')}
 }`;
 
   yield fs.writeFile(dir + '/Gruntfile.js', content);
+
+  console.log(chalk.green.bold('Wrote', dir + '/Gruntfile.js'));
 });

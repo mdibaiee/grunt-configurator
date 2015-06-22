@@ -1,6 +1,5 @@
 import cli from 'commander';
 import pkg from './package.json';
-import chalk from 'chalk';
 import npm from './utils/npm';
 import ask from './utils/ask';
 import registerTasks from './utils/register-tasks';
@@ -13,7 +12,7 @@ const resume = suspend.resume;
 
 cli.version(pkg.version)
    .option('-l, --list <plugins>', 'List of plugins to install and configure',
-           plugins => plugins.split(' '))
+           plugins => plugins.split(','))
    .option('--save', 'see npm --save')
    .option('--save-dev', 'see npm --save-dev')
    .option('--save-optional', 'see npm --save-optional')
@@ -36,8 +35,6 @@ cli.version(pkg.version)
             }
 
             const tasks = yield registerTasks(resume());
-
-            console.log(config);
 
             write(config, gruntedPlugins, tasks, dir);
           }));

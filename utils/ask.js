@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import askFiles from './file-plugins';
+import askOptions from './options';
 import path from 'path';
 import suspend from 'suspend';
 import prompt from 'prompt';
@@ -8,12 +9,12 @@ import prompt from 'prompt';
 const resume = suspend.resume;
 
 export default suspend(function* (plugin, cb) {
-  const dir = path.resolve(`plugins/${plugin}.json`);
+  const dir = path.resolve(__dirname, `../plugins/${plugin}.json`);
 
   const content = yield fs.readFile(dir, resume());
 
   const info = JSON.parse(content);
-  console.log(chalk.cyan.bold(`Configuring Plugin ${info.name}`));
+  console.log(chalk.cyan.bold(`Configuring Plugin ${chalk.underline(info.name)}`));
 
   const config = {};
 
@@ -53,8 +54,14 @@ const askConfig = suspend(function* askConfig(info, config, cb) {
 
   const record = config[answer.target] = {};
 
+  if (info.options) {
+    const options = yield askOptions(info, resume());
+
+    record.options = options;
+  }
+
   if (info.files) {
-    let files = yield askFiles(info, resume());
+    const files = yield askFiles(info, resume());
 
     record.files = files;
   }

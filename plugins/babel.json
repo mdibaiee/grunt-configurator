@@ -1,0 +1,8 @@
+{
+  "name": "babel",
+  "files": true,
+  "options": [
+    "sourceMap",
+    "modules"
+  ]
+}
