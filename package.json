@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A grunt configuration builder CLI to kickstart your projects without wasting time.",
   "main": "index.js",
+  "bin": {"grunt-configurator": "index.js"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
